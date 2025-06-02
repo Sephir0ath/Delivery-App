@@ -1,0 +1,15 @@
+<!-- app_envios/templates/conductor/paquetes_asignados.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paquetes Asignados</title>
+</head>
+<body>
+    <h1>Paquetes Asignados</h1>
+    {% for paquete in paquetes %}
+        <p>Paquete {{ forloop.counter0 }}</p>
+    {% empty %}
+        <p>No hay paquetes asignados.</p>
+    {% endfor %}
+</body>
+</html>

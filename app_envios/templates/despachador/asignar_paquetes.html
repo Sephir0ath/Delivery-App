@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Asignar Paquetes a Conductor</h1>
+<form method="post">
+    {% csrf_token %}
+    
+    <h2>Paquetes Disponibles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Seleccionar</th>
+                <th>ID</th>
+                <th>Destinatario</th>
+                <th>Destino</th>
+                <th>Peso (kg)</th>
+                <th>Registrado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paquete in paquetes %}
+            <tr>
+                <td><input type="checkbox" name="paquetes" value="{{ paquete.id }}"></td>
+                <td>{{ paquete.id }}</td>
+                <td>{{ paquete.destinatario.user.get_full_name }}</td>
+                <td>{{ paquete.destino.comuna }}</td>
+                <td>{{ paquete.peso|default:"N/A" }}</td>
+                <td>{{ paquete.fecha_registro }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay paquetes disponibles para asignar</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Conductor</h2>
+    <select name="conductor" class="form-select mb-3" required>
+        <option value="">Seleccione un conductor</option>
+        {% for conductor in conductores %}
+        <option value="{{ conductor.id }}">
+            {{ conductor.user.get_full_name }} - Licencia: {{ conductor.licencia }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <h2>Sucursal de Origen</h2>
+    <select name="sucursal" class="form-select mb-3" required>
+        <option value="">Seleccione sucursal</option>
+        {% for sucursal in sucursales %}
+        <option value="{{ sucursal.id }}">{{ sucursal.comuna }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="btn btn-primary">Asignar Paquetes</button>
+</form>
+{% endblock %}
