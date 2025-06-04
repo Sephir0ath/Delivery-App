@@ -4,4 +4,6 @@ from . import views
 urlpatterns = [
     path('mis-pedidos/', views.pedidos_asignados_conductor, name='mis_pedidos'),
     path('asignar-paquetes/', views.asignar_paquetes, name='asignar_paquetes'),
+    # agregar login en ' '
+    path('', views.home, name='home'),
 ]

@@ -3,6 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from app_envios.models import Conductor, Paquete, Sucursal, Despachador, Viaje
 
+#La pagina default de la aplicacion web
+@login_required
+def home(request):
+    return render(request, "home.html")
+
 @login_required
 def pedidos_asignados_conductor(request):
     # Paso 1: Obtener el conductor actual usando el usuario logueado
