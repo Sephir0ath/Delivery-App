@@ -38,11 +38,11 @@ def login_view(request):
 
             # Redirección por tipo
             if user.tipo == 'cliente':
-                return redirect('cliente_dashboard')
+                return redirect('home')
             elif user.tipo == 'conductor':
-                return redirect('conductor_dashboard')
+                return redirect('home')
             elif user.tipo == 'despachador':
-                return redirect('despachador_dashboard')
+                return redirect('home')
             elif user.tipo == 'admin':
                 return redirect('admin_dashboard')
     else:
