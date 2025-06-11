@@ -78,6 +78,7 @@
           <p><strong>Destino:</strong> {{ viaje.destino.comuna }}</p>
           <p><strong>Fecha:</strong> {{ viaje.fecha|date:"d/m/Y" }}</p>
           <p><strong>Estado:</strong> <span class="estado-{{ viaje.estado|lower }}">{{ viaje.estado }}</span></p>
+          <a href="/viaje/{{ viaje.id }}/ruta">Ver Ruta</a>
         </div>
       </div>
     {% endfor %}

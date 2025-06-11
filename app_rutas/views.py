@@ -12,7 +12,7 @@ def optimizar_ruta(request, viaje_id):
     coordenadas = [(s.longitud, s.latitud) for s in sucursales]
 
     if len(coordenadas) <= 1:
-        return render(request, 'sin_ruta.html', {'mensaje': 'Se necesita más de una sucursal para optimizar.'})
+        return render(request, 'error.html', {'mensaje': 'Se necesita más de una sucursal para optimizar.'})
 
     # Armar los datos para ORS
     jobs = [{"id": i + 1, "location": coord} for i, coord in enumerate(coordenadas)]
@@ -47,4 +47,6 @@ def optimizar_ruta(request, viaje_id):
             {'lat': s.latitud, 'lon': s.longitud} for s in orden_sucursales
         ]
     })
+
+
 

@@ -34,6 +34,7 @@ class Paquete(models.Model):
     destinatario = models.ForeignKey(Cliente,on_delete =models.PROTECT)
     destino = models.ForeignKey(Sucursal,on_delete=models.CASCADE)
 
+
 class HistorialPaquete(models.Model):
     paquete = models.ForeignKey(Paquete,on_delete=models.CASCADE)
     estado = models.ForeignKey(EstadoEntrega,on_delete=models.SET_NULL, null=True)

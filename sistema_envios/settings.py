@@ -127,7 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #LOGIN_REDIRECT_URL = '/'
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'home'
 
 ORS_API_KEY = '5b3ce3597851110001cf6248579fd92cf6bf456f8e58b3b131cb0a25'
