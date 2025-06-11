@@ -15,8 +15,8 @@ class EstadoEntrega(models.Model):
 
 class Sucursal(models.Model):
     comuna = models.CharField(max_length=50)
-    latitud = models.DecimalField(max_digits=10, decimal_places=7)
-    longitud = models.DecimalField(max_digits=10, decimal_places=7)
+    latitud = models.FloatField()
+    longitud = models.FloatField()
 
 class Viaje(models.Model):
     asignador = models.ForeignKey(Despachador,on_delete=models.CASCADE)

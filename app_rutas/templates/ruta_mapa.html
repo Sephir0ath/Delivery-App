@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ruta optimizada</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    #map { height: 600px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>Ruta optimizada del viaje</h2>
+  <div id="map"></div>
+
+  <script>
+    const sucursales = {{ sucursales|safe }};
+
+    const coordenadas = [
+      {% for suc in sucursales %}
+        [{{ suc.lat }}, {{ suc.lon }}],
+      {% endfor %}
+    ];
+
+    const map = L.map('map').setView(coordenadas[0], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18
+    }).addTo(map);
+
+    const ruta = L.polyline(coordenadas, {color: 'blue'}).addTo(map);
+
+    coordenadas.forEach((coord, i) => {
+      L.marker(coord).addTo(map).bindPopup("Sucursal " + i);
+    });
+
+    map.fitBounds(ruta.getBounds());
+  </script>
+</body>
+</html>

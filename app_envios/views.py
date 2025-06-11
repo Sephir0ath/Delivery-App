@@ -47,7 +47,7 @@ def asignar_paquetes(request):
                 viaje = Viaje.objects.create(asignador=despachador, conductor=conductor, origen=sucursal)
                 paquetes.update(viaje=viaje)
 
-            return redirect('despachador/asignar_paquetes')
+            return redirect('asignar_paquetes')
 
         except (Conductor.DoesNotExist, Sucursal.DoesNotExist):
             return render(request, "error.html", {"mensaje": "Selección inválida."})

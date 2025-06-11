@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_envios',
-    'app_autenticacion'
+    'app_autenticacion',
+    'app_rutas'
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = 'home'
 
+ORS_API_KEY = '5b3ce3597851110001cf6248579fd92cf6bf456f8e58b3b131cb0a25'

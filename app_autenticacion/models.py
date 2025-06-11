@@ -9,11 +9,11 @@ class Usuario(AbstractUser):
         ('admin', 'Administrador'),
         ('despachador','Despachador'),
     )
-    email = models.EmailField(unique=True)
+    #email = models.EmailField(unique=True)
     tipo = models.CharField(max_length=20, choices=TIPO_USUARIO)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    #USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = []
 
     groups = models.ManyToManyField(
         Group,
