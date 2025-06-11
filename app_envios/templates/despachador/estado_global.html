@@ -1,15 +1,144 @@
-
 {% extends "base.html" %}
 {% block content %}
-<h2>Estado de todos los paquetes</h2>
-<table>
-  <tr><th>ID</th><th>Destinatario</th><th>Estado</th></tr>
-  {% for paquete in paquetes %}
-    <tr>
-      <td>{{ paquete.id }}</td>
-      <td>{{ paquete.destinatario.user.username }}</td>
-      <td>{{ paquete.estado_actual.estado }}</td>
-    </tr>
-  {% endfor %}
-</table>
+<style>
+  /* Main container */
+  .status-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  /* Heading style */
+  .status-container h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+  }
+
+  /* Table styling */
+  .status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .status-table thead tr {
+    background-color: #3498db;
+    color: #ffffff;
+    text-align: left;
+  }
+
+  .status-table th,
+  .status-table td {
+    padding: 15px 20px;
+  }
+
+  .status-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    transition: background-color 0.3s;
+  }
+
+  .status-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
+
+  .status-table tbody tr:last-of-type {
+    border-bottom: 2px solid #3498db;
+  }
+
+  .status-table tbody tr:hover {
+    background-color: #f1f9ff;
+  }
+
+  /* Status badge styling */
+  .status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .status-pendiente {
+    background-color: #f39c12;
+    color: white;
+  }
+
+  .status-en-camino {
+    background-color: #3498db;
+    color: white;
+  }
+
+  .status-entregado {
+    background-color: #2ecc71;
+    color: white;
+  }
+
+  .status-cancelado {
+    background-color: #e74c3c;
+    color: white;
+  }
+
+  /* Empty state */
+  .no-packages {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 18px;
+    margin-top: 50px;
+  }
+
+  /* Responsive table */
+  @media (max-width: 768px) {
+    .status-table {
+      font-size: 14px;
+    }
+    
+    .status-table th,
+    .status-table td {
+      padding: 10px 12px;
+    }
+  }
+</style>
+
+<div class="status-container">
+  <h2>Estado de todos los paquetes</h2>
+  
+  {% if paquetes %}
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Destinatario</th>
+          <th>Destino</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for paquete in paquetes %}
+          <tr>
+            <td>{{ paquete.id }}</td>
+            <td>{{ paquete.destinatario.user.username }}</td>
+            <td>{{ paquete.destino.comuna }}</td>
+            <td>
+              <span class="status-badge status-{{ paquete.estado_actual.estado|lower|cut:" " }}">
+                {{ paquete.estado_actual.estado }}
+              </span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="no-packages">No hay paquetes registrados</p>
+  {% endif %}
+</div>
 {% endblock %}
