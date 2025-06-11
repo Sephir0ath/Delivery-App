@@ -16,7 +16,7 @@ def pedidos_asignados_conductor(request):
         return render(request, "error.html", {"mensaje": "No eres un conductor registrado."})
 
     paquetes = Paquete.objects.select_related('viaje', 'destino', 'destinatario').filter(viaje__conductor=conductor)
-    return render(request, "paquetes_asignados.html", {"paquetes": paquetes})
+    return render(request, "conductor/paquetes_asignados.html", {"paquetes": paquetes})
 
 # Vista despachador: asignar paquetes
 @login_required
@@ -46,7 +46,7 @@ def asignar_paquetes(request):
                 viaje = Viaje.objects.create(asignador=despachador, conductor=conductor, origen=sucursal)
                 paquetes.update(viaje=viaje)
 
-            return redirect('asignar_paquetes')
+            return redirect('despachador/asignar_paquetes')
 
         except (Conductor.DoesNotExist, Sucursal.DoesNotExist):
             return render(request, "error.html", {"mensaje": "Selección inválida."})
@@ -55,7 +55,7 @@ def asignar_paquetes(request):
     conductores_disponibles = Conductor.objects.filter(disponible=True).select_related('user')
     sucursales = Sucursal.objects.all()
 
-    return render(request, "asignar_paquetes.html", {
+    return render(request, "despachador/asignar_paquetes.html", {
         'paquetes': paquetes_sin_asignar,
         'conductores': conductores_disponibles,
         'sucursales': sucursales

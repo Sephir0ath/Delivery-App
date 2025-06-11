@@ -1,15 +1,135 @@
-<!-- app_envios/templates/conductor/paquetes_asignados.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Paquetes Asignados</title>
-</head>
-<body>
-    <h1>Paquetes Asignados</h1>
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Main container */
+  .packages-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  /* Heading style */
+  .packages-container h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+  }
+
+  /* Package card styling */
+  .package-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .package-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Package details styling */
+  .package-details p {
+    margin: 10px 0;
+    color: #34495e;
+    font-size: 16px;
+  }
+
+  .package-details strong {
+    color: #2c3e50;
+    min-width: 80px;
+    display: inline-block;
+  }
+
+  /* Status styling */
+  .status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .status-pendiente {
+    background-color: #f39c12;
+    color: white;
+  }
+
+  .status-en-camino {
+    background-color: #3498db;
+    color: white;
+  }
+
+  .status-entregado {
+    background-color: #2ecc71;
+    color: white;
+  }
+
+  .status-cancelado {
+    background-color: #e74c3c;
+    color: white;
+  }
+
+  /* Button styling */
+  .change-state-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+
+  .change-state-btn:hover {
+    background-color: #2980b9;
+  }
+
+  /* Empty state styling */
+  .no-packages {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 18px;
+    margin-top: 50px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .package-card {
+      padding: 15px;
+    }
+  }
+</style>
+
+<div class="packages-container">
+  <h2>Paquetes Asignados</h2>
+  
+  {% if paquetes %}
     {% for paquete in paquetes %}
-        <p>Paquete {{ forloop.counter0 }}</p>
-    {% empty %}
-        <p>No hay paquetes asignados.</p>
+      <div class="package-card">
+        <div class="package-details">
+          <p><strong>ID:</strong> {{ paquete.id }}</p>
+          <p><strong>Destino:</strong> {{ paquete.destino.comuna }}</p>
+          <p><strong>Estado:</strong> 
+            <span class="status status-{{ paquete.estado_actual.estado|lower|cut:' ' }}">
+              {{ paquete.estado_actual.estado }}
+            </span>
+          </p>
+          <a href="{% url 'cambiar_estado' paquete.id %}" class="change-state-btn">
+            Cambiar estado
+          </a>
+        </div>
+      </div>
     {% endfor %}
-</body>
-</html>
+  {% else %}
+    <p class="no-packages">No tienes paquetes asignados.</p>
+  {% endif %}
+</div>
+{% endblock %}
