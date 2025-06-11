@@ -30,7 +30,7 @@ class ClienteAdmin(admin.ModelAdmin):
 
 @admin.register(Conductor)
 class ConductorAdmin(admin.ModelAdmin):
-    list_display = ('user', 'licencia', 'disponible')
+    list_display = ('user', 'licencia', 'disponible','sucursal')
     list_filter = ('disponible',)
     search_fields = ('user__username', 'licencia')
 
@@ -61,7 +61,7 @@ class ViajeAdmin(admin.ModelAdmin):
 
 @admin.register(Paquete)
 class PaqueteAdmin(admin.ModelAdmin):
-    list_display = ('fecha_registro', 'peso', 'destinatario', 'destino', 'estado_actual', 'viaje')
+    list_display = ('fecha_registro', 'peso', 'destinatario', 'destino', 'origen','estado_actual', 'viaje')
     list_filter = ('estado_actual', 'fecha_registro')
     search_fields = ('destinatario__user__username',)
 

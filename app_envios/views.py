@@ -19,6 +19,42 @@ def pedidos_asignados_conductor(request):
     paquetes = Paquete.objects.select_related('viaje', 'destino', 'destinatario').filter(viaje__conductor=conductor)
     return render(request, "conductor/paquetes_asignados.html", {"paquetes": paquetes})
 
+
+def crear_viaje(request):
+    paquetes_disponibles = Paquete.objects.filter(viaje__isnull=True)
+    try:
+        despachador = Despachador.objects.get(user=request.user)
+    except Despachador.DoesNotExist:
+        return render(request, "error.html", {"mensaje": "No tienes permisos de despachador."})
+    if request.method == 'POST':
+        paquete_ids = request.POST.getlist('paquetes')
+        try:
+            paquetes = Paquete.objects.filter(id__in=paquete_ids, viaje__isnull=True)
+
+            if not paquetes.exists():
+                return render(request, "error.html", {"mensaje": "Los paquetes ya están asignados o no existen."})
+
+            with transaction.atomic():
+                viaje = Viaje.objects.create(asignador=despachador)
+                paquetes.update(viaje=viaje)
+
+            return redirect('ver_viajes')
+
+        except (Conductor.DoesNotExist, Sucursal.DoesNotExist):
+            return render(request, "error.html", {"mensaje": "Selección inválida."})
+
+            for paquete_id in paquete_ids:
+                paquete = Paquete.objects.get(id=paquete_id)
+                paquete.viaje = viaje
+                paquete.save()
+
+            return redirect('ver_viajes')
+
+    return render(request, 'despachador/crear_viaje.html', {
+        'paquetes': paquetes_disponibles
+    })
+
+
 # Vista despachador: asignar paquetes
 @login_required
 def asignar_paquetes(request):

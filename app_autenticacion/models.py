@@ -48,7 +48,7 @@ class Conductor(models.Model):
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     licencia = models.CharField(max_length=50)
     disponible = models.BooleanField(default=True)
-    sucursal =  models.ForeignKey(Sucursal,on_delete=models.SET_NULL, null=True)
+    sucursal =  models.ForeignKey(Sucursal,on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.user.username
 
