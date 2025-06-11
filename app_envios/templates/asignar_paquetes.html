@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Asignar paquetes a conductor</h2>
+<form method="post">
+  {% csrf_token %}
+  <label>Conductor:</label>
+  <select name="conductor">
+    {% for c in conductores %}
+      <option value="{{ c.id }}">{{ c.user.username }}</option>
+    {% endfor %}
+  </select><br>
+
+  <label>Sucursal:</label>
+  <select name="sucursal">
+    {% for s in sucursales %}
+      <option value="{{ s.id }}">{{ s.comuna }}</option>
+    {% endfor %}
+  </select><br>
+
+  <label>Paquetes:</label><br>
+  {% for p in paquetes %}
+    <input type="checkbox" name="paquetes" value="{{ p.id }}"> {{ p.id }} → {{ p.destino.comuna }}<br>
+  {% endfor %}
+
+  <button type="submit">Asignar</button>
+</form>
+{% endblock %}

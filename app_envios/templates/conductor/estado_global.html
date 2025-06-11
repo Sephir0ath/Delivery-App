@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Estado de todos los paquetes</h2>
+<table>
+  <tr><th>ID</th><th>Destinatario</th><th>Estado</th></tr>
+  {% for paquete in paquetes %}
+    <tr>
+      <td>{{ paquete.id }}</td>
+      <td>{{ paquete.destinatario.user.username }}</td>
+      <td>{{ paquete.estado_actual.estado }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

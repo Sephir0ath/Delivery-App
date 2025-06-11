@@ -1,0 +1,11 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Viajes asignados</h2>
+{% for viaje in viajes %}
+  <div>
+    <p><strong>Conductor:</strong> {{ viaje.conductor.user.username }}</p>
+    <p><strong>Origen:</strong> {{ viaje.origen.comuna }}</p>
+  </div>
+{% endfor %}
+{% endblock %}

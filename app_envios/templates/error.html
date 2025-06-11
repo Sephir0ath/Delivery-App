@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Error</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
     <h1>Error</h1>
     <p>{{ mensaje }}</p>
-    <a href="{% url 'asignar_paquetes' %}">Volver a intentar</a>
-</body>
-</html>
+    <a href="{% url 'asignar_paquetes' %}" class="btn btn-primary">Volver a intentar</a>
+{% endblock %}

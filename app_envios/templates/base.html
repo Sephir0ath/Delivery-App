@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delivery App</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/paquetes-asignados/">Mis Paquetes asignados</a> |
+      <a href="/asignar-paquetes/">Asignar Paquetes</a> |
+      <a href="/ver-viajes/">Ver Viajes</a> |
+      <a href="/estado-global/">Estados Globales</a> |
+      <a href="/registro/">Registrarse</a>
+    </div>
+    <div class="nav-right">
+      {% if user.is_authenticated %}
+        <span>Hola, {{ user.username }}</span>
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit">Cerrar sesión</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Iniciar sesión</a>
+        <a href="{% url 'registro' %}">Registrarse</a>
+      {% endif %}
+
+
+    </div>
+  </nav>
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>

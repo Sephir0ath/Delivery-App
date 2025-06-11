@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Cambiar estado del paquete #{{ paquete.id }}</h2>
+<form method="post">
+  {% csrf_token %}
+  <label for="estado">Nuevo estado:</label>
+  <select name="estado" id="estado">
+    {% for estado in estados %}
+      <option value="{{ estado.id }}">{{ estado.estado }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Guardar</button>
+</form>
+{% endblock %}
