@@ -4,7 +4,8 @@ from decimal import Decimal
 # Create your tests here.
 from django.urls import reverse
 
-from .models import Conductor, Paquete, Viaje, Usuario, Sucursal, Despachador, Cliente
+from app_envios.models import  Paquete, Viaje,  Sucursal
+from app_autenticacion.models import Conductor, Usuario, Despachador, Cliente
 
 class PedidosAsignadosTest(TestCase):
     def setUp(self):
