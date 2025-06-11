@@ -1,0 +1,16 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Paquetes asignados</h2>
+{% for paquete in paquetes %}
+  <div>
+    <p><strong>ID:</strong> {{ paquete.id }}</p>
+    <p><strong>Destino:</strong> {{ paquete.destino.comuna }}</p>
+    <p><strong>Estado:</strong> {{ paquete.estado_actual.estado }}</p>
+    <a href="{% url 'cambiar_estado' paquete.id %}">Cambiar estado</a>
+    <br><br>
+  </div>
+{% empty %}
+  <p>No tienes paquetes asignados.</p>
+{% endfor %}
+{% endblock %}

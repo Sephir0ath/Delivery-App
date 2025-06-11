@@ -12,7 +12,7 @@ def register_cliente(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('cliente_dashboard')  # o donde quieras redirigir
+            return redirect('login')  # o donde quieras redirigir
     else:
         form = RegistroClienteForm()
     return render(request, 'register_cliente.html', {'form': form})

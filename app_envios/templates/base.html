@@ -1,4 +1,6 @@
-<!--Plantilla base que encontre que internet-->
+{% comment %}
+<<<<<< HEAD
+<a!--Plantilla base que encontre que internet-a->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,4 +36,126 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" ></script>
   </body>
+======= {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delivery App</title>
+  <style>
+    /* Base styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    /* Navbar container */
+    .navbar {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Left-aligned nav items */
+    .nav-left {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    /* Right-aligned nav items */
+    .nav-right {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    /* Navigation links */
+    .navbar a {
+      color: #ecf0f1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 0;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #3498db;
+    }
+
+    /* User greeting */
+    .navbar span {
+      color: #ecf0f1;
+      margin-right: 10px;
+    }
+
+    /* Logout button */
+    .navbar button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+    .navbar button:hover {
+      background-color: #c0392b;
+    }
+
+    /* Remove default hr styling */
+    hr {
+      margin: 0;
+      border: none;
+      height: 1px;
+      background-color: #ddd;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 10px;
+      }
+      
+      .nav-left, .nav-right {
+        width: 100%;
+        justify-content: center;
+        padding: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/paquetes-asignados/">Mis Paquetes</a>
+      <a href="/asignar-paquetes/">Asignar Paquetes</a>
+      <a href="/ver-viajes/">Ver Viajes</a>
+      <a href="/estado-global/">Estados Globales</a>
+    </div>
+    <div class="nav-right">
+      {% if user.is_authenticated %}
+        <span>Hola, {{ user.username }}</span>
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit">Cerrar sesión</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Iniciar sesión</a>
+        <a href="{% url 'registro' %}">Registrarse</a>
+      {% endif %}
+    </div>
+  </nav>
+  <hr>
+  {% block content %}
+  {% endblock %}
+</body>
+<!-- >>>>>>> rama4 -->
 </html>

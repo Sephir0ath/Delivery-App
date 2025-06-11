@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import get_user_model
 from .models import Cliente, Conductor
 
@@ -20,42 +20,27 @@ class CustomLoginForm(AuthenticationForm):
 # Registro de clientes
 # -------------------------
 
-class RegistroClienteForm(forms.ModelForm):
-    password1 = forms.CharField(
-        label='Contraseña',
-        widget=forms.PasswordInput,
-        strip=False
-    )
-    password2 = forms.CharField(
-        label='Repetir contraseña',
-        widget=forms.PasswordInput,
-        strip=False
-    )
-    direccion = forms.CharField(label='Dirección', max_length=255)
+class RegistroClienteForm(UserCreationForm):
+    direccion = forms.CharField(max_length=255)
 
     class Meta:
         model = Usuario
-        fields = ['username']  # username será tratado como email
+        fields = ['username', 'password1', 'password2']
+        widgets = {
+            'tipo': forms.HiddenInput()  # Auto-set to 'cliente'
+        }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].label = 'Correo electrónico'
-        self.fields['username'].widget.attrs.update({'placeholder': 'correo@ejemplo.com'})
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
-
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Las contraseñas no coinciden.")
-        return password2
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['tipo'].initial = 'cliente'
+            self.fields['username'].label = 'Correo electrónico'
+            self.fields['username'].widget.attrs.update({'placeholder': 'correo@ejemplo.com'})
 
     def save(self, commit=True):
         user = super().save(commit=False)
         email = self.cleaned_data['username']
         user.username = email
-        user.email = email
-        user.set_password(self.cleaned_data['password1'])
+        user.email = user.username
         user.tipo = 'cliente'
         if commit:
             user.save()
@@ -66,25 +51,28 @@ class RegistroClienteForm(forms.ModelForm):
 # -------------------------
 # Registro de conductores
 # -------------------------
-class RegistroConductorForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+class RegistroConductorForm(UserCreationForm):
     licencia = forms.CharField(max_length=50)
 
     class Meta:
         model = Usuario
-        fields = ['username', 'password']  # 'username' será el email
+        fields = ['username', 'password1', 'password2']
+        widgets = {
+            'tipo': forms.HiddenInput()
+        }  # 'username' será el email
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['tipo'].initial = 'conductor'
         self.fields['username'].label = 'Correo electrónico'
         self.fields['username'].widget.attrs.update({'placeholder': 'correo@ejemplo.com'})
+
 
     def save(self, commit=True):
         user = super().save(commit=False)
         email = self.cleaned_data['username']
         user.username = email
-        user.email = email
-        user.set_password(self.cleaned_data['password'])
+        user.email = user.username
         user.tipo = 'conductor'
         if commit:
             user.save()

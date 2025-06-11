@@ -1,15 +1,121 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>Iniciar Sesion</title>
-</head>
-<body>
-    <p>Iniciar Sesion</p>
-    <form method="post" action="">
-        {% csrf_token %}        
-        <input type="text" name="username" placeholder="Usuario" required />
-        <input type="password" name="password" placeholder="Contraseña" required />
-        <button type="submit">Iniciar Sesion</button>
-</body>
-</html>
+
+{% extends "base.html" %}
+{% block content %}
+<style>
+  /* Main container - matches registro.html style */
+  .login-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Heading style */
+  .login-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 24px;
+  }
+
+  /* Form styling */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Form fields */
+  .login-form p {
+    margin: 0;
+  }
+
+  .login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #34495e;
+  }
+
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+
+  .login-form input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+
+  /* Button styling - matches registro.html */
+  .login-form button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+
+  .login-form button:hover {
+    background-color: #2980b9;
+  }
+
+  /* Error messages */
+  .login-form .errorlist {
+    color: #e74c3c;
+    margin: 5px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+  }
+
+  /* Additional links */
+  .login-links {
+    text-align: center;
+    margin-top: 20px;
+    color: #7f8c8d;
+  }
+
+  .login-links a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .login-links a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="login-container">
+  <h2>Iniciar sesión</h2>
+  <form method="post" class="login-form">
+    {% csrf_token %}
+    <!-- ADD THIS HIDDEN INPUT FIELD -->
+    <input type="hidden" name="next" value="{{ request.GET.next|default:'' }}">
+    
+    {{ form.as_p }}
+    <button type="submit">Entrar</button>
+  </form>
+  
+  <div class="login-links">
+    <p>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a></p>
+    <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+  </div>
+</div>
+{% endblock %}
+

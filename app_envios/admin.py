@@ -1,5 +1,7 @@
 from django.contrib import admin
-
+from .models import Usuario, Cliente, Conductor, Despachador, Paquete, Viaje, EstadoEntrega, HistorialPaquete, Sucursal
+"""
+<<<<<<< HEAD
 # Register your models here.
 from django.contrib import admin
 from .models import (
@@ -69,3 +71,15 @@ class PaqueteAdmin(admin.ModelAdmin):
 class HistorialPaqueteAdmin(admin.ModelAdmin):
     list_display = ('paquete', 'estado', 'fecha')
     list_filter = ('estado', 'fecha')
+=======
+"""
+admin.site.register(Usuario)
+admin.site.register(Cliente)
+admin.site.register(Conductor)
+admin.site.register(Despachador)
+admin.site.register(Paquete)
+admin.site.register(Viaje)
+admin.site.register(EstadoEntrega)
+admin.site.register(HistorialPaquete)
+admin.site.register(Sucursal)
+
