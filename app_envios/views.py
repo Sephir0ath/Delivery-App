@@ -117,3 +117,10 @@ def registro_cliente(request):
     else:
         form = RegistroClienteForm()
     return render(request, 'registro.html', {'form': form})
+
+@login_required
+def home(request):
+    """Simple home page view that requires login"""
+    return render(request, 'home.html', {
+        'user': request.user  # Pass the user object to the template
+    })

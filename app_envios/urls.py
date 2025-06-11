@@ -14,5 +14,5 @@ urlpatterns = [
     path('estado-global/', views.ver_estado_global, name='estado_global'),
     path('registro/', views.registro_cliente, name='registro'),
     path('ver-paquetes/', views.pedidos_asignados_conductor, name='ver_paquetes'),
-    path('', RedirectView.as_view(url='/accounts/login/', permanent=False)),
+    path('', views.home, name='home'),
 ]
