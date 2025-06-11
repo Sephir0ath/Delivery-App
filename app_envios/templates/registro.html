@@ -1,9 +1,83 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Registro de cliente</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Registrarse</button>
-</form>
+<style>
+  /* Main container styling */
+  .registration-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Heading style */
+  .registration-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  /* Form styling */
+  .registration-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Form fields (applies to labels and inputs rendered by form.as_p) */
+  .registration-container form p {
+    margin: 0;
+  }
+
+  .registration-container form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  .registration-container form input[type="text"],
+  .registration-container form input[type="email"],
+  .registration-container form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  /* Button styling */
+  .registration-container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  .registration-container button:hover {
+    background-color: #45a049;
+  }
+
+  /* Error messages (if any) */
+  .registration-container .errorlist {
+    color: #ff0000;
+    margin: 5px 0 0 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>
+
+<div class="registration-container">
+  <h2>Registro de cliente</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Registrarse</button>
+  </form>
+</div>
 {% endblock %}
