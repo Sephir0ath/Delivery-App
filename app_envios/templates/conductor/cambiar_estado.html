@@ -1,15 +1,105 @@
 
 {% extends "base.html" %}
 {% block content %}
-<h2>Cambiar estado del paquete #{{ paquete.id }}</h2>
-<form method="post">
-  {% csrf_token %}
-  <label for="estado">Nuevo estado:</label>
-  <select name="estado" id="estado">
-    {% for estado in estados %}
-      <option value="{{ estado.id }}">{{ estado.estado }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit">Guardar</button>
-</form>
+<style>
+  .status-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .status-title {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+    font-size: 1.8rem;
+  }
+
+  .status-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    font-weight: 600;
+    color: #34495e;
+    font-size: 1.1rem;
+  }
+
+  select {
+    padding: 0.8rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+  }
+
+  select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  }
+
+  .submit-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+  }
+
+  .submit-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .status-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .status-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<div class="status-container">
+  <h2 class="status-title">Cambiar estado del paquete #{{ paquete.id }}</h2>
+  <form method="post" class="status-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="estado">Nuevo estado:</label>
+      <select name="estado" id="estado">
+        {% for estado in estados %}
+          <option value="{{ estado.id }}">{{ estado.estado }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="submit-btn">Guardar cambios</button>
+  </form>
+</div>
 {% endblock %}
