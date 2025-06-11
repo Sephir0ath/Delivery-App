@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 # Create your models here.
 
+class Sucursal(models.Model):
+    comuna = models.CharField(max_length=50)
+    latitud = models.FloatField()
+    longitud = models.FloatField()
+    def __str__(self):
+        return self.comuna
+
 class Usuario(AbstractUser):
     TIPO_USUARIO = (
         ('cliente', 'Cliente'),
@@ -11,7 +18,8 @@ class Usuario(AbstractUser):
     )
     #email = models.EmailField(unique=True)
     tipo = models.CharField(max_length=20, choices=TIPO_USUARIO)
-
+    def __str__(self):
+        return self.username
     #USERNAME_FIELD = 'email'
     #REQUIRED_FIELDS = []
 
@@ -33,11 +41,18 @@ class Usuario(AbstractUser):
 class Cliente(models.Model):
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     direccion = models.CharField(max_length=255)
+    def __str__(self):
+        return self.user.username
 
 class Conductor(models.Model):
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     licencia = models.CharField(max_length=50)
     disponible = models.BooleanField(default=True)
+    sucursal =  models.ForeignKey(Sucursal,on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return self.user.username
 
 class Despachador(models.Model):
     user = models.OneToOneField(Usuario, on_delete = models.CASCADE)
+    def __str__(self):
+        return self.user.username
