@@ -29,7 +29,7 @@ class Paquete(models.Model):
     alto = models.DecimalField(max_digits=7, decimal_places=3)
     largo = models.DecimalField(max_digits=7, decimal_places=3)
     peso = models.DecimalField(max_digits=6, decimal_places=2)
-    estado_actual = models.ForeignKey(EstadoEntrega,on_delete=models.SET_NULL, null=True)
+    estado_actual = models.ForeignKey(EstadoEntrega,on_delete=models.SET_NULL, null=True, blank=True)
     viaje = models.ForeignKey(Viaje,on_delete=models.SET_NULL, null=True, blank=True)
     destinatario = models.ForeignKey(Cliente,on_delete =models.PROTECT)
     destino = models.ForeignKey(Sucursal,on_delete=models.SET_NULL, null=True, related_name='paquete')

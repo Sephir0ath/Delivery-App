@@ -128,7 +128,11 @@ def home(request):
 
 @login_required
 def ver_viajes_conductor(request):
-    conductor = get_object_or_404(Conductor, user=request.user)
+    try:
+        conductor = Conductor.objects.get(user=request.user)
+    except Conductor.DoesNotExist:
+        return render(request, "error.html", {"mensaje": "No tienes permisos de conductor."})
+    
     viajes = Viaje.objects.select_related('conductor', "origen").filter(
         conductor=conductor)
     
