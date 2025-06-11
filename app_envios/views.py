@@ -94,7 +94,7 @@ def ver_viajes(request):
         return render(request, "error.html", {"mensaje": "No tienes permisos de despachador."})
 
     viajes = Viaje.objects.select_related('conductor', 'origen').filter(asignador=despachador)
-    return render(request, "ver_viajes.html", {"viajes": viajes})
+    return render(request, "conductor/ver_viajes.html", {"viajes": viajes})
 
 # Vista despachador: ver estado global de todos los paquetes
 @login_required
@@ -105,7 +105,7 @@ def ver_estado_global(request):
         return render(request, "error.html", {"mensaje": "No tienes permisos de despachador."})
 
     paquetes = Paquete.objects.select_related('estado_actual', 'viaje', 'destino', 'destinatario')
-    return render(request, "estado_global.html", {"paquetes": paquetes})
+    return render(request, "despachador/estado_global.html", {"paquetes": paquetes})
 
 # Vista: registro de cliente
 def registro_cliente(request):
