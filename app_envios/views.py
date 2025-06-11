@@ -131,7 +131,7 @@ def ver_viajes(request):
         return render(request, "error.html", {"mensaje": "No tienes permisos de despachador."})
 
     viajes = Viaje.objects.select_related('conductor', 'origen').filter(asignador=despachador)
-    return render(request, "conductor/ver_viajes.html", {"viajes": viajes})
+    return render(request, "despachador/ver_viajes.html", {"viajes": viajes})
 
 # Vista despachador: ver estado global de todos los paquetes
 @login_required
@@ -160,4 +160,20 @@ def home(request):
     """Simple home page view that requires login"""
     return render(request, 'home.html', {
         'user': request.user  # Pass the user object to the template
+    })
+
+@login_required
+def ver_viajes_conductor(request):
+    try:
+        conductor = Conductor.objects.get(user=request.user)
+    except Conductor.DoesNotExist:
+        return render(request, "error.html", {"mensaje": "No tienes permisos de conductor."})
+    
+    viajes = Viaje.objects.select_related('conductor', "origen").filter(
+        conductor=conductor)
+    
+    
+    return render(request, "conductor/mis_viajes.html", {
+        'viajes': viajes,
+
     })
