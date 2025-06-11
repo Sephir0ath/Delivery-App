@@ -21,7 +21,7 @@ class Viaje(models.Model):
     conductor = models.ForeignKey(Conductor,on_delete=models.CASCADE)
     origen = models.ForeignKey(Sucursal,on_delete=models.SET_NULL, null=True)
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Paquete(models.Model):
     fecha_registro = models.DateField(default=date.today)
@@ -32,10 +32,10 @@ class Paquete(models.Model):
     estado_actual = models.ForeignKey(EstadoEntrega,on_delete=models.SET_NULL, null=True)
     viaje = models.ForeignKey(Viaje,on_delete=models.SET_NULL, null=True, blank=True)
     destinatario = models.ForeignKey(Cliente,on_delete =models.PROTECT)
-    destino = models.ForeignKey(Sucursal,on_delete=models.SET_NULL, null=True, related_name='paquetes_origen')
-    origen = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True,related_name='paquetes_destino')
+    destino = models.ForeignKey(Sucursal,on_delete=models.SET_NULL, null=True, related_name='paquete')
+    origen = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True,related_name='paquetes_origen')
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class HistorialPaquete(models.Model):
