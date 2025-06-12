@@ -21,6 +21,11 @@ Luego para ejecutar la aplicación:
 ```bash
 python manage.py runserver
 ```
+---
+Para crear un usuario admin se debe ejecutar el siguiente comando:
+```bash
+python manage.py createsuperuser
+```  
 
 ## Contribuyentes ✨
 * [Juan Felipe Raysz Muñoz](https://github.com/Sephir0ath)
