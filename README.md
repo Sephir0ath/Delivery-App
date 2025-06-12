@@ -7,7 +7,8 @@ Diseño y desarrollo de un sistema de gestión de rutas y localización para emp
   <img src="https://github.com/Sephir0ath/Delivery-App/blob/main/vista.png" alt="Imagen de referencia">
 </p>
 
-**Ejecución**
+**Ejecución**  
+
 Primero se deben generar las migraciones:
 ```bash
 python manage.py makemigrations
