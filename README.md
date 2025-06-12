@@ -25,5 +25,5 @@ python manage.py runserver
 * [Gustavo Alonso Benitez Cespedes](https://github.com/D34dcru1s3r)
 
 <p align="center">
-  <img src="https://github.com/Sephir0ath/Delivery-App/blob/main/vista.png" alt="Imagen de referencia" width="400">
+  <img src="https://github.com/Sephir0ath/Delivery-App/blob/main/vista.png" alt="Imagen de referencia">
 </p>
