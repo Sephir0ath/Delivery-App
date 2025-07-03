@@ -3,6 +3,8 @@
 ---
 Diseño y desarrollo de un sistema de gestión de rutas y localización para empresas de logística. Este sistema permitirá a los usuarios gestionar envíos, rastrear paquetes mediante estados discretos y optimizar rutas de entrega utilizando la API de OpenStreetMap.
 
+link del vídeo: https://www.youtube.com/watch?v=w0_2TVg-tBQ
+
 <p align="center">
   <img src="https://github.com/Sephir0ath/Delivery-App/blob/main/vista.png" alt="Imagen de referencia">
 </p>
